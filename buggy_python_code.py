@@ -3,12 +3,11 @@
 import cPickle
 import subprocess
 import base64
-import subprocess
 import flask
 
 # Input injection
 def transcode_file(request, filename):
-    command = 'ffmpeg -i "{source}" output_file.mpg'.format(source=filename)
+    command = f'ffmpeg -i "{filename}" output_file.mpg'
     subprocess.call(command, shell=True)  # a bad idea!
 
 
@@ -19,7 +18,7 @@ def foo(request, user):
 
 
 # Pickles
-class RunBinSh(object):
+class RunBinSh:
     def __reduce__(self):
         return (subprocess.Popen, (('/bin/sh',),))
 
